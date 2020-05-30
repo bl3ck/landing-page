@@ -19,7 +19,6 @@
 */
 const nav_bar = document.querySelector('.navbar__menu');
 const sections = Array.from(document.getElementsByTagName('section'));
-
 console.log('Navs', nav_bar);
 console.log('Sections', sections);
 
@@ -29,10 +28,11 @@ console.log('Sections', sections);
  * 
 */
 
-getSectionNameAndHash = (sections) => {
+// Get all section ID's and Names for menu
+setSectionNameAndHash = (sections) => {
     let section_IDs = [];
 
-    sections.forEach( section => {
+    sections.forEach(section => {
         const section_name = section.dataset.nav;
         const section_hash = section.id
         section_IDs.push({
@@ -43,14 +43,38 @@ getSectionNameAndHash = (sections) => {
 
     return section_IDs;
 }
-console.log('Section IDS', getSectionNameAndHash(sections));
 
+// 
 
+const SectionsObject = setSectionNameAndHash(sections);
+console.log('Sections Object', SectionsObject);
+
+setNavMenuLis = (SectionsObject) => {
+
+    let nav_menu_lis = []
+
+    SectionsObject.forEach((section) => {
+        const nav_item = document.createElement('li');
+        nav_item.innerHTML = `<a class="menu__link" href="#${section.hash}">${section.name}</a>`;
+        nav_menu_lis.push(nav_item);
+        document.getElementById("navbar__list").appendChild(nav_item);
+    });
+
+    // SectionsObject.forEach((section) => {
+    //     let li_node = document.createElement("li");
+    //     let data = 'fish';
+    //     nav_menu_lis.push(li_node);
+    // });
+
+    return nav_menu_lis;
+}
+
+console.log('Menu Lis', setNavMenuLis(SectionsObject));
 
 /**
  * End Helper Functions
  * Begin Main Functions
- * 
+ *
 */
 
 // build the nav
@@ -65,7 +89,7 @@ console.log('Section IDS', getSectionNameAndHash(sections));
 /**
  * End Main Functions
  * Begin Events
- * 
+ *
 */
 
 // Build menu 
