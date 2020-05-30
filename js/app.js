@@ -17,7 +17,11 @@
  * Define Global Variables
  * 
 */
+const nav_bar = document.querySelector('.navbar__menu');
+const sections = Array.from(document.getElementsByTagName('section'));
 
+console.log('Navs', nav_bar);
+console.log('Sections', sections);
 
 /**
  * End Global Variables
