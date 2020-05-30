@@ -28,6 +28,12 @@ console.log('Sections', sections);
  * 
 */
 
+function scrollTo(target) {
+    $('html,body').animate({
+      scrollTop: target ? target.offset().top : 0
+    }, 'slow');
+  }
+
 // Get all section ID's and Names for menu
 setSectionNameAndHash = (sections) => {
     let section_IDs = [];
@@ -58,6 +64,7 @@ setNavMenuLis = (sectionsObject) => {
         nav_item.innerHTML = `<a class="menu__link" href="#${section.hash}">${section.name}</a>`;
         nav_menu_lis.push(nav_item);
         document.getElementById("navbar__list").appendChild(nav_item);
+        nav_item.onclick = () => scrollTo($(`#${section.hash}`));
     });
 
     // sectionsObject.forEach((section) => {
@@ -97,7 +104,7 @@ var observer = new IntersectionObserver(function (entries) {
     }
     else {
         // section.classList.toggle('your-active-class');
-        console.log('R & D class list', section.classList);
+        console.log('D class list', section.classList);
     }
 }, { threshold: [0, 0.3] });
 
