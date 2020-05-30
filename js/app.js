@@ -28,6 +28,14 @@ console.log('Sections', sections);
  * 
 */
 
+let navSections = sections.filter((section) => {
+        if ( section.dataset.nav ){
+            return section;
+        }
+    }
+);
+console.log('Section with Nav', navSections);
+
 function scrollTo(target) {
     $('html,body').animate({
         scrollTop: target ? target.offset().top : 0
@@ -35,10 +43,10 @@ function scrollTo(target) {
 }
 
 // Get all section ID's and Names for menu
-setSectionNameAndHash = (sections) => {
+setSectionNameAndHash = (navSections) => {
     let section_IDs = [];
 
-    sections.forEach(section => {
+    navSections.forEach(section => {
         const section_name = section.dataset.nav;
         const section_hash = section.id
         section_IDs.push({
@@ -52,7 +60,7 @@ setSectionNameAndHash = (sections) => {
 
 // 
 
-const sectionsObject = setSectionNameAndHash(sections);
+const sectionsObject = setSectionNameAndHash(navSections);
 console.log('Sections Object', sectionsObject);
 
 setNavMenuLis = (sectionsObject) => {
