@@ -188,7 +188,9 @@ section:nth-of-type(3n + 1) .landing__container::after {
     opacity: 0;
     transition: ease 0.5s all;
 }
-
+.active__link {
+    color: red !important;
+}
 
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
