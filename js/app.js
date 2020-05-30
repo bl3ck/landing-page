@@ -85,22 +85,22 @@ console.log('Menu Lis', setNavMenuLis(sectionsObject));
 
 // Scroll to anchor ID using scrollTO event
 // root is the browser viewport / screen
-var observer = new IntersectionObserver(function(entries) {
-	// since there is a single target to be observed, there will be only one entry
-	if(entries[0]['isIntersecting'] === true) {
-		if(entries[0]['intersectionRatio'] === 1)
-			console.log('Target is fully visible in the screen');
-		else if(entries[0]['intersectionRatio'] > 0.5)
-			console.log('More than 50% of target is visible in the screen');
-		else 
-			console.log('Less than 50% of target is visible in the screen');
-	}
-	else {
-		console.log('Target is not visible in the screen');
-	}
-}, { threshold: [0, 0.5, 1] });
+var observer = new IntersectionObserver(function (entries) {
+    // since there is a single target to be observed, there will be only one entry
+    if (entries[0]['isIntersecting'] === true) {
+        if (entries[0]['intersectionRatio'] > 0.5) {
+            let section = entries[0].target;
+            // let current_section = document.getElementById(`${section.hash}`);
+            section.classList.toggle('your-active-class');
+            console.log('class list', section.classList);
+        }
+    }
+    else {
+        console.log('Target is not visible in the screen');
+    }
+}, { threshold: [0, 0.5] });
 
-sectionsObject.forEach( section => {
+sectionsObject.forEach(section => {
     observer.observe(document.querySelector(`#${section.hash}`));
 });
 
