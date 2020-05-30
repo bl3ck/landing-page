@@ -29,7 +29,17 @@ console.log('Sections', sections);
  * 
 */
 
+getSectionIDs = (sections) => {
+    let section_IDs = [];
 
+    sections.forEach( section => {
+        section_IDs.push(section.dataset.nav);
+    });
+
+    return section_IDs;
+}
+
+console.log('Section IDS', getSectionIDs(sections));
 
 /**
  * End Helper Functions
