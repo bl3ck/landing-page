@@ -87,18 +87,19 @@ console.log('Menu Lis', setNavMenuLis(sectionsObject));
 // root is the browser viewport / screen
 var observer = new IntersectionObserver(function (entries) {
     // since there is a single target to be observed, there will be only one entry
+    let section = entries[0].target;
     if (entries[0]['isIntersecting'] === true) {
-        if (entries[0]['intersectionRatio'] > 0.5) {
-            let section = entries[0].target;
+        if (entries[0]['intersectionRatio'] > 0.2) {
             // let current_section = document.getElementById(`${section.hash}`);
             section.classList.toggle('your-active-class');
             console.log('class list', section.classList);
         }
     }
     else {
-        console.log('Target is not visible in the screen');
+        // section.classList.toggle('your-active-class');
+        console.log('R & D class list', section.classList);
     }
-}, { threshold: [0, 0.5] });
+}, { threshold: [0, 0.3] });
 
 sectionsObject.forEach(section => {
     observer.observe(document.querySelector(`#${section.hash}`));
