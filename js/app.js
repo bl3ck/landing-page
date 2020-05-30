@@ -46,21 +46,21 @@ setSectionNameAndHash = (sections) => {
 
 // 
 
-const SectionsObject = setSectionNameAndHash(sections);
-console.log('Sections Object', SectionsObject);
+const sectionsObject = setSectionNameAndHash(sections);
+console.log('Sections Object', sectionsObject);
 
-setNavMenuLis = (SectionsObject) => {
+setNavMenuLis = (sectionsObject) => {
 
     let nav_menu_lis = []
 
-    SectionsObject.forEach((section) => {
+    sectionsObject.forEach((section) => {
         const nav_item = document.createElement('li');
         nav_item.innerHTML = `<a class="menu__link" href="#${section.hash}">${section.name}</a>`;
         nav_menu_lis.push(nav_item);
         document.getElementById("navbar__list").appendChild(nav_item);
     });
 
-    // SectionsObject.forEach((section) => {
+    // sectionsObject.forEach((section) => {
     //     let li_node = document.createElement("li");
     //     let data = 'fish';
     //     nav_menu_lis.push(li_node);
@@ -69,7 +69,7 @@ setNavMenuLis = (SectionsObject) => {
     return nav_menu_lis;
 }
 
-console.log('Menu Lis', setNavMenuLis(SectionsObject));
+console.log('Menu Lis', setNavMenuLis(sectionsObject));
 
 /**
  * End Helper Functions
@@ -84,7 +84,25 @@ console.log('Menu Lis', setNavMenuLis(SectionsObject));
 
 
 // Scroll to anchor ID using scrollTO event
+// root is the browser viewport / screen
+var observer = new IntersectionObserver(function(entries) {
+	// since there is a single target to be observed, there will be only one entry
+	if(entries[0]['isIntersecting'] === true) {
+		if(entries[0]['intersectionRatio'] === 1)
+			console.log('Target is fully visible in the screen');
+		else if(entries[0]['intersectionRatio'] > 0.5)
+			console.log('More than 50% of target is visible in the screen');
+		else 
+			console.log('Less than 50% of target is visible in the screen');
+	}
+	else {
+		console.log('Target is not visible in the screen');
+	}
+}, { threshold: [0, 0.5, 1] });
 
+sectionsObject.forEach( section => {
+    observer.observe(document.querySelector(`#${section.hash}`));
+});
 
 /**
  * End Main Functions
