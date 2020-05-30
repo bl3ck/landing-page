@@ -30,9 +30,9 @@ console.log('Sections', sections);
 
 function scrollTo(target) {
     $('html,body').animate({
-      scrollTop: target ? target.offset().top : 0
+        scrollTop: target ? target.offset().top : 0
     }, 'slow');
-  }
+}
 
 // Get all section ID's and Names for menu
 setSectionNameAndHash = (sections) => {
