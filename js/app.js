@@ -29,17 +29,23 @@ console.log('Sections', sections);
  * 
 */
 
-getSectionIDs = (sections) => {
+getSectionNameAndHash = (sections) => {
     let section_IDs = [];
 
     sections.forEach( section => {
-        section_IDs.push(section.dataset.nav);
+        const section_name = section.dataset.nav;
+        const section_hash = section.id
+        section_IDs.push({
+            name: section_name,
+            hash: section_hash
+        });
     });
 
     return section_IDs;
 }
+console.log('Section IDS', getSectionNameAndHash(sections));
 
-console.log('Section IDS', getSectionIDs(sections));
+
 
 /**
  * End Helper Functions
