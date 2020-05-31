@@ -20,8 +20,6 @@ window.addEventListener('load', function () {
     */
     const nav_bar = document.querySelector('.navbar__menu');
     const sections = Array.from(document.getElementsByTagName('section'));
-    console.log('Navs', nav_bar);
-    console.log('Sections', sections);
 
     /**
      * End Global Variables
@@ -35,12 +33,13 @@ window.addEventListener('load', function () {
         }
     }
     );
-    console.log('Section with Nav', navSections);
 
-    function scrollTo(target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-    }
-
+    /**
+    * @description Get all section ID's and Names for menu
+    * @param {number} a
+    * @param {number} b
+    * @returns {number} Sum of a and b
+    */
     // Get all section ID's and Names for menu
     setSectionNameAndHash = (navSections) => {
         let section_IDs = [];
@@ -113,17 +112,19 @@ window.addEventListener('load', function () {
             if (entries[0]['intersectionRatio'] > 0.8) {
                 console.log('Intersecting');
                 // let current_section = document.getElementById(`${section.hash}`);
-                section.classList.toggle('your-active-class');
+                section.classList.toggle('active__section');
                 // console.log('class list', section.classList);
                 navListElement.classList.add('active__link')
             }
             else if (navListElement.classList.contains('active__link')) {
-                navListElement.classList.remove('active__link')
+                navListElement.classList.toggle('active__link')
             }
         }
         else {
-            section.classList.toggle('your-active-class');
-            console.log('Not Intersecting');
+            if (section.classList.contains('active__section')) {
+                section.classList.remove('active__section');
+            }
+            // console.log('Not Intersecting');
         }
 
     }, { threshold: [0, 0.8] });
