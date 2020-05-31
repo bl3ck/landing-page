@@ -2,12 +2,21 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Project Description](#description)
 
-## Instructions
+## Description
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+A simple landing page build with HTML and CSS. Which uses JavaScript to dynamically create nodes base of data attributes. 
 
-To get started, open `js/app.js` and start building out the app's functionality
+To view the project, open `/index.html` with any browser of your choice.
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+To add more menu items simply add a section in your `/index.html` file and specify data attributes.
+
+## Tips/ Improvements
+
+Only sections with the `data-nav` atrribute would be populated in the nav, hence you need not worry if you did not want to specify a particular section in the nav.
+
+## Credits
+Udacity
+StackOverFlow
+Harisu F.
