@@ -1,25 +1,29 @@
 window.addEventListener('load', function () {
     /**
- * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- * 
- * Dependencies: None
- * 
- * JS Version: ES2015/ES6
- * 
- * JS Standard: ESlint
- * 
-*/
+     * 
+     * Manipulating the DOM exercise.
+     * Exercise programmatically builds navigation,
+     * scrolls to anchors from navigation,
+     * and highlights section in viewport upon scrolling.
+     * 
+     * Dependencies: None
+     * 
+     * JS Version: ES2015/ES6
+     * 
+     * JS Standard: ESlint
+     * 
+    */
 
     /**
      * Define Global Variables
      * 
     */
-    const nav_bar = document.querySelector('.navbar__menu');
-    const sections = Array.from(document.getElementsByTagName('section'));
+    let sections = Array.from(document.getElementsByTagName('section'));
+    let navSections = sections.filter((section) => {
+        if (section.dataset.nav) {
+            return section;
+        }
+    });
 
     /**
      * End Global Variables
@@ -27,62 +31,46 @@ window.addEventListener('load', function () {
      * 
     */
 
-    let navSections = sections.filter((section) => {
-        if (section.dataset.nav) {
-            return section;
-        }
-    }
-    );
-
     /**
     * @description Get all section ID's and Names for menu
-    * @param {number} a
-    * @param {number} b
-    * @returns {number} Sum of a and b
+    * @param {Array} navSections
+    * @returns {Array} List withSection IDs
     */
-    // Get all section ID's and Names for menu
     setSectionNameAndHash = (navSections) => {
-        let section_IDs = [];
+        let sectionIDs = [];
 
         navSections.forEach(section => {
             const section_name = section.dataset.nav;
             const section_hash = section.id
-            section_IDs.push({
+            sectionIDs.push({
                 name: section_name,
                 hash: section_hash
             });
         });
 
-        return section_IDs;
+        return sectionIDs;
     }
 
-    // 
-
     const sectionsObject = setSectionNameAndHash(navSections);
-    console.log('Sections Object', sectionsObject);
 
     setNavMenuLis = (sectionsObject) => {
 
-        let nav_menu_lis = []
+        let navMenuLis = []
 
         sectionsObject.forEach((section) => {
-            const nav_item = document.createElement('li');
-            nav_item.innerHTML = `<a class="menu__link" data-id="${section.hash}" href="#${section.hash}">${section.name}</a>`;
-            nav_menu_lis.push(nav_item);
-            document.getElementById("navbar__list").appendChild(nav_item);
-            nav_item.onclick = (e) => {
+            const navItem = document.createElement('li');
+            navItem.innerHTML = `<a class="menu__link" data-id="${section.hash}" href="#${section.hash}">${section.name}</a>`;
+            navMenuLis.push(navItem);
+            document.getElementById("navbar__list").appendChild(navItem);
+            navItem.onclick = (e) => {
                 e.preventDefault();
                 const elementToScrollTo = document.getElementById(`${section.hash}`)
                 elementToScrollTo.scrollIntoView({ block: 'center', behavior: 'smooth' })
-
-                // scrollTo((`#${section.hash}`));
             };
         });
 
-        return nav_menu_lis;
+        return navMenuLis;
     }
-
-    console.log('Menu Lis', setNavMenuLis(sectionsObject));
 
     /**
      * End Helper Functions
@@ -91,20 +79,15 @@ window.addEventListener('load', function () {
     */
 
     // build the nav
+    setNavMenuLis(sectionsObject);
 
 
-    // Add class 'active' to section when near top of viewport
-
-
-    // Scroll to anchor ID using scrollTO event
     // root is the browser viewport / screen
     var observer = new IntersectionObserver((entries) => {
         // since there is a single target to be observed, there will be only one entry
         let section = entries[0].target;
-        // console.log('Section list', section);
 
-        const navListElement = document.querySelector(`.menu__link[data-id='${section.id}']`);
-        const section_h = document.getElementById(section.hash)
+        let navListElement = document.querySelector(`.menu__link[data-id='${section.id}']`);
 
         // get_links
         if (entries[0]['isIntersecting'] === true) {
@@ -115,16 +98,13 @@ window.addEventListener('load', function () {
                 section.classList.toggle('active__section');
                 // console.log('class list', section.classList);
                 navListElement.classList.add('active__link')
-            }
-            else if (navListElement.classList.contains('active__link')) {
+            } else if (navListElement.classList.contains('active__link')) {
                 navListElement.classList.toggle('active__link')
             }
-        }
-        else {
+        } else {
             if (section.classList.contains('active__section')) {
                 section.classList.remove('active__section');
             }
-            // console.log('Not Intersecting');
         }
 
     }, { threshold: [0, 0.8] });
@@ -132,19 +112,4 @@ window.addEventListener('load', function () {
     sectionsObject.forEach(section => {
         observer.observe(document.querySelector(`#${section.hash}`));
     });
-
-    /**
-     * End Main Functions
-     * Begin Events
-     *
-    */
-
-    // Build menu 
-
-    // Scroll to section on link click
-
-    // Set sections as active
-
-
-
 });
